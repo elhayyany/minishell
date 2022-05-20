@@ -14,3 +14,4 @@ error:
 	parentheses
 	quotes
 	unknown symbol (digits litters > < ' " | $ - _ ~ =  ? () )
+export MallocStackLogging=1

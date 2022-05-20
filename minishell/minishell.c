@@ -5,6 +5,7 @@ int main()
 {
    char     *line;
    t_prior  *script;
+   char		**operators;
  
    line = 0;
    while (1)
@@ -25,8 +26,9 @@ int main()
 		   free(line);
 		   continue ;
 	   }
-	   script = m_shell_parser(line);
-	//    free_tree(script);
+	   script = m_shell_parser(line, &operators);
+	   
+	   //free_tree(script);
 	   free (line);
    }
 }

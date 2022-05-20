@@ -109,7 +109,7 @@ void    calulate_cmds_lens(char *line, int *arr)
 	}
 	arr[l] = k - j;;
 }
- 
+
 char    **allocate(int *lens, int i)
 {
 	char    **slices;
@@ -247,6 +247,7 @@ char    **ft_split_pro(char *line, char ***operators)
 		i++;
 	}
 	slices[i] = NULL;
+	free(lens);
 	return (slices);
 }
 
@@ -264,6 +265,7 @@ char	*new_slice(char *slice, int i, int j)
 		i++;
 	}
 	line[k] = '\0';
+	//free (slice);
 	return (line);
 }
 
@@ -292,25 +294,19 @@ char *clear_it(char *slice)
 	free (slice);
 	return (line);
 }
-t_prior*    m_shell_parser(char *line)
+t_prior*    m_shell_parser(char *line, char *** operators)
 {
 	char    **slices;
 	t_prior *script;
-	char    **operators;
 	int     i;
-	// static int p;
 
-	//operators = NULL;
-	slices = ft_split_pro(line, &operators);
-	i = 0;
-	// if (strsnums(slices) == 1)
-	// 	return (0);
-	i = 0;
+	slices = ft_split_pro(line, operators);
 	script = malloc(sizeof(t_prior));
 	check_malloc(script, 0, 1);
-	script->operator = operators;
+	script->operator = *operators;
 	script->numofchilds = strsnums(slices);
 	script->line = line;
+	script->slices = slices;
 	if (strsnums(slices) == 1)
 	{
 		i = 0;
@@ -327,17 +323,11 @@ t_prior*    m_shell_parser(char *line)
 	i = 0;
 	while (slices[i])
 	{
-		printf("{%d}\t + %s + \t%s\n",i, slices[i], script->operator[i]);
 	
-		script->next[i] = m_shell_parser(slices[i]);
+		script->next[i] = m_shell_parser(slices[i], operators);
+		printf("{%d}\t + %s + \t%s\n",i, script->slices[i], script->operator[i]);
 		i++;
 	}
-	// i = 0;
-	// while (slices[i])
-	// {
-	// 	script->line = slices[i];
-	// 	i++;
-	// }
-
+	//free (slices);
 	return (script);
 }
