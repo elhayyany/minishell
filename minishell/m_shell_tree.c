@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/21 09:50:17 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/21 11:30:23 by ael-hayy         ###   ########.fr       */
+/*   Created: 2022/05/21 13:33:33 by ael-hayy          #+#    #+#             */
+/*   Updated: 2022/05/21 15:27:48 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "parser.h"
  
@@ -79,6 +80,8 @@ int calulate_cmds(char *line)
 		}
 		if (line[i] == '(')
 			i += closed_parentheses(&line[i]);
+		if (line[i] == '\'' || line[i] == '\"')
+			i += next_qoute(&line[i], line[i]);
 		i++;
 	}
 	j++;
@@ -111,10 +114,10 @@ void    calulate_cmds_lens(char *line, int *arr)
 			k += closed_parentheses(&line[i]);
 			i += closed_parentheses(&line[i]);
 		}
-		if (line[i] == '\'' || line[i] == '"')
+		if (line[i] == '\'' || line[i] == '\"')
 		{
-			k += next_qoute(&line[i], line[i]);
 			i += next_qoute(&line[i], line[i]);
+			k += next_qoute(&line[i], line[i]);
 		}
 		i++;
 		k++;
@@ -211,6 +214,11 @@ char    *get_substr(char *line, int *len, int start, char **operator)
 	
 	while (line[i] == ' ' || line[i] == '|' || line[i] == '&')
 	{
+		if (line[i] == '\'' || line[i] == '\"')
+		{
+			i += next_qoute(&line[i], line[i]);
+			k += next_qoute(&line[i], line[i]);
+		}
 		k++;
 		i++;
 	}
@@ -254,6 +262,7 @@ char    **ft_split_pro(char *line, char ***operators)
 	while (i < num_of_cmds)
 	{
 		slices[i] = get_substr(line, lens, i, *operators);
+		printf("[\t%s\t]\n", slices[i]);
 		i++;
 	}
 	slices[i] = NULL;

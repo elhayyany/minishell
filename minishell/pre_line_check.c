@@ -6,10 +6,9 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 09:50:03 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/21 09:50:05 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/21 15:34:08 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "parser.h"
 
@@ -67,7 +66,7 @@ int check_parentheses(char *line)
 		}     
 		else if (line[i] == ')')
 			j--;
-		if (j < 0 )
+		if (j != 0 )
 			return (1);
 		i++;
 	}
@@ -77,13 +76,17 @@ int	check_andor(char *line)
 {
 	int	i;
 	int	k;
+	int	l;
 
 	i = 0;
 	k = 0;
+	l = 0;
 	while (line[i])
 	{
 		if (line[i] == '|' || line[i] == '&')
 		{
+			if (l == 0)
+				return (1);
 			if (line[i] == '&' && line[i + 1] != '&')
 				return (1);
 			if (i == 0)
@@ -108,9 +111,14 @@ int	check_andor(char *line)
 			}
 			if (line[i + 1] == '|' || line[i + 1] == '&')
 				i++;
+			l = 0;
 		}
+		if (line[i] != ' ' && !(line[i] == '|' || line[i] == '&'))
+			l = 1;
 		i++;
 	}
+	if (l == 0)
+		return (1);
 	return(0);
 }
 int	revcheck(char *line)
