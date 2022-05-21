@@ -1,8 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   m_shell_tree.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/21 09:50:17 by ael-hayy          #+#    #+#             */
+/*   Updated: 2022/05/21 11:30:23 by ael-hayy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-
- 
- 
- 
 #include "parser.h"
  
  void	check_malloc(void *p, void **ptr, int i)
@@ -103,6 +110,11 @@ void    calulate_cmds_lens(char *line, int *arr)
 		{
 			k += closed_parentheses(&line[i]);
 			i += closed_parentheses(&line[i]);
+		}
+		if (line[i] == '\'' || line[i] == '"')
+		{
+			k += next_qoute(&line[i], line[i]);
+			i += next_qoute(&line[i], line[i]);
 		}
 		i++;
 		k++;
@@ -211,7 +223,6 @@ char    *get_substr(char *line, int *len, int start, char **operator)
 		j++;
 	}
 	slice[j] = '\0';
-	// //slice = clean_slice(slice);
 	while (line[i] == ' ')
 		i++;
 	while (line[i] == ')')
@@ -243,7 +254,6 @@ char    **ft_split_pro(char *line, char ***operators)
 	while (i < num_of_cmds)
 	{
 		slices[i] = get_substr(line, lens, i, *operators);
-		//printf("[ %d ]   %s      ******%s\n",num_of_cmds,slices[i], (*operators)[i]);
 		i++;
 	}
 	slices[i] = NULL;
@@ -265,7 +275,6 @@ char	*new_slice(char *slice, int i, int j)
 		i++;
 	}
 	line[k] = '\0';
-	//free (slice);
 	return (line);
 }
 
@@ -325,9 +334,8 @@ t_prior*    m_shell_parser(char *line, char *** operators)
 	{
 	
 		script->next[i] = m_shell_parser(slices[i], operators);
-		printf("{%d}\t + %s + \t%s\n",i, script->slices[i], script->operator[i]);
+		//printf("{%d}\t + %s + \t%s\n",i, script->slices[i], script->operator[i]);
 		i++;
 	}
-	//free (slices);
 	return (script);
 }
