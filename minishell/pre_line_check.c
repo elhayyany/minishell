@@ -6,11 +6,25 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 09:50:03 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/21 15:34:08 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/21 17:14:51 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+int	all_space(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 int next_qoute(char *line, char c)
 {
@@ -41,7 +55,7 @@ int check_parentheses(char *line)
 	{
 		if (line[i] == '\"' || line[i] == '\'')
 			i += next_qoute(&line[i], line[i]);
-		else if (line[i] == '(')
+		if (line[i] == '(')
 		{
 			if (i == 0)
 				j++;
@@ -83,6 +97,8 @@ int	check_andor(char *line)
 	l = 0;
 	while (line[i])
 	{
+		if (line[i] == '\"' || line[i] == '\'')
+			i += next_qoute(&line[i], line[i]);
 		if (line[i] == '|' || line[i] == '&')
 		{
 			if (l == 0)
@@ -121,6 +137,15 @@ int	check_andor(char *line)
 		return (1);
 	return(0);
 }
+
+int	rev_next_quote(char *line, int	j, char c)
+{
+	j--;
+	while (line[j] != c)
+		j--;
+	return (j);
+}
+
 int	revcheck(char *line)
 {
 	int	i;
@@ -129,6 +154,8 @@ int	revcheck(char *line)
 	i = ft_strlen(line) - 1;
 	while (i >= 0)
 	{
+		if (line[i] == '\"' || line[i] == '\'')
+			i = rev_next_quote(line, i, line[i]);
 		if (line[i] == '|' || line[i] == '&')
 		{
 			if (i == ft_strlen(line) - 1)

@@ -6,7 +6,7 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 09:50:09 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/21 14:28:38 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/21 17:36:34 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,16 @@ int main()
 			write(1, "\n", 1);
 			continue ;
 		}
-		if (pre_check_line(line))
+		if (!all_space(line))
 		{
-		   free(line);
-		   continue ;
+			free(line);
+			continue ;
 		}
+		// if (pre_check_line(line))
+		// {
+		//    free(line);
+		//    continue ;
+		// }
 		script = m_shell_parser(line, &operators);
 		tree_parser(script);
 		free_tree(script);
