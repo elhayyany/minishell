@@ -6,7 +6,7 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 13:33:33 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/22 10:34:33 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/22 17:21:20 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 	}
  }
 
-int strsnums(char  **slices)
+int	strsnums(char  **slices)
 {
 	int i;
  

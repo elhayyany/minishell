@@ -6,7 +6,7 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 09:49:57 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/22 17:08:16 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/22 19:04:23 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,47 @@ int	get_file_name(t_cmd *pipe, int i, char **word)
 	(*word)[k] = '\0';
 	i--;
 	return (i);
+}
+
+void	free_db_str(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}
+
+void	push_back(char	***stack, char *word)
+{
+	int		i;
+	char	**newstack;
+
+	if (!(*stack))
+	{
+		*stack = malloc(sizeof(char **) * 2);
+		(*stack)[0] = word;
+		(*stack)[1] = 0;
+	}
+	else
+	{
+		i = strsnums(*stack);
+		newstack = malloc(sizeof(char *) * i + 2)
+		i = 0;
+		while ((*stack)[i])
+		{
+			newstack[i] = (*stack)[i];
+			i++;
+		}
+		newstack[i] = word;
+		newstack[i] = 0;
+		free_db_str(*stack);
+		(*stack) = newstack;
+	}
 }
 
 int	her_doc(t_cmd *pipe, int i)
@@ -106,15 +147,124 @@ int	cmd_and_args(t_cmd *pipe, int i)
 	return (i);
 }
 
-void	redirectio(t_cmd *pipe)
+int	no_quote_found(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	*len_without_quotes(char *str)
+{
+	int		i;
+	int		j;
+	char	c;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			c = str[i++];
+			while (str[i] != c)
+			{
+				i++;
+				j++;
+			}
+		}
+		else
+			j++;
+		i++;
+	}
+	return (j);
+}
+
+char	*get_value(char *str, char **env)
+{
+	char	*new_str;
+	int		i;
+	int		len;
+
+	i = 1;
+	if (!ft_isalpha(str[i])
+	{
+		
+	}
+	str = get_var(str[i]);
+	len = ft_strlen(str);
+
+}
+
+char	*get_val(char *str, char **env)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+			str = get_value(&str[i], env); "*******************************************************"
+		i++;
+	}
+	return (str);
+}
+
+char	*remove_quotes_str(char *str, char **env)
+{
+	int		len;
+	int		i;
+	int		j;
+	char	*new_str;
+
+	str = get_val(str, env);  "*******************************************************"
+	if (no_quote_found(str))
+		return (str);
+	len = len_without_quotes(str);
+	//j = ft_strlen(str);
+	new_str = malloc(sizeof(char) * len + 1);
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '\"' || str[i] == '\'')
+		{
+			i += ft_concat(new_str, get_quotesd_word(&str[i], i, &j)); "*******************************************************"
+		}
+		else
+			new_str[j] = str[i];
+		i++;
+		j++;
+	}
+	new_str[j] = '\0';
+	free(str);
+	return (new_str);
+}
+
+void	process_quotes(t_cmd *pipe, che **env)
+{
+	pipe->cmd = remove_quotes_str(pipe->cmd, env);
+	pipe->args = remove_quotes(pipe->args, env);		"*******************************************************"
+	pipe->filesin = remove_quotes(pipe->filesin, env);		"*******************************************************"
+	pipe->filesout = remove_quotes(pipe->filesout, env);		"*******************************************************"
+	pipe->her_limit = remove_quotes(pipe->her_limit, env);		"*******************************************************"
+	pipe->files_appends = remove_quotes(pipe->files_appends, env);		"*******************************************************"
+}
+
+void	redirections(t_cmd *pipe, char **env)
 {
 	int	i;
 
 	i = 0;
 	while (pipe->line[i])
 	{
-		// if (pipe->line[i] == '\''|| pipe->line[i] == '\"')
-		// 	i += next_qoute(pipe->line[i]);
 		else if (pipe->line[i] == '<' && pipe->line[i + 1] == '<')
 			i += her_doc(pipe, i);
 		else if (pipe->line[i] == '<')
@@ -127,12 +277,11 @@ void	redirectio(t_cmd *pipe)
 			i += cmd_and_args(pipe, i);
 		i++;
 	}
+	process_quotes(pipe, env);
+	files_open(pipe);
+
 }
 
-// void	quote_removal(t_cmd *pipe)
-// {
-	
-// }
 
 
 void	ft_srtuct_bzero(t_cmd *pipe)
@@ -156,14 +305,16 @@ void	ft_srtuct_bzero(t_cmd *pipe)
 	pipe->files_appends = 0;
 }
 
-t_cmd	*cmd_parse(char *line)
+t_cmd	*cmd_parse(char *line, char **env)
 {
 	t_cmd	*pipe;
 	pipe = malloc(sizeof(t_cmd));
 	ft_srtuct_bzero(pipe);
 	pipe->line = line;
+	redirections(pipe);
 	return (c);
-void	tree_parser(t_prior *script)
+}
+void	tree_parser(t_prior *script, char **env)
 {
 	int	i;
 	int	j;

@@ -6,7 +6,7 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:37:45 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/22 16:19:42 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/22 17:52:22 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct parsing
 	int		here_doc;
 	char	**her_limite
 	// char	**cmd_and_args;
-}   		t_cm;
+}   		t_cmd;
 typedef struct priorities
 {
 	t_cmd				*cmd;
@@ -51,7 +51,8 @@ void		check_malloc (void *ptr, void **ptro, int i);
 int			calulate_cmds(char *line);
 int			strsnums(char	**slices);
 void		free_tree(t_prior *script);
-void		tree_parser(t_prior *script);
+void		tree_parser(t_prior *script, char **env);
 int			next_qoute(char *line, char c);
 int			all_space(char *line);
+int			strsnums(char  **slices);
 #endif

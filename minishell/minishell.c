@@ -6,14 +6,14 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 09:50:09 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/21 17:36:34 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/22 17:44:17 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "executor/minishell.h"
 
-int main()
+int main(int ac, char **sv, char **env)
 {
 	char     *line;
 	t_prior  *script;
@@ -44,7 +44,7 @@ int main()
 		//    continue ;
 		// }
 		script = m_shell_parser(line, &operators);
-		tree_parser(script);
+		tree_parser(script, char **env);
 		free_tree(script);
 		free(script);
 		free (line);
