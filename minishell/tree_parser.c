@@ -6,7 +6,7 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 09:49:57 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/22 21:44:27 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/23 13:48:57 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,54 +233,76 @@ char	*str_without_char(char *str)
 
 
 
-char	*get_value(char *str, char **env)
+// char	*get_value(char *str, char **env)
+// {
+// 	char	*new_str;
+// 	int		i;
+// 	char	*tem;
+
+// 	i = 1;
+// 	tem = malloc(sizeof(char) * 2);
+// 	tem[1] = '\0';
+// 	new_str = 0;
+// 	while (str[i] && str[i] != ' ')
+// 	{
+// 		tem[0] = str[i];
+// 		new_str = ft_strjoin(new_str, tem);
+// 		i++;
+// 	}
+// 	free(tem);
+// 	if (its_int_and_char(new_str))
+// 		new_str = ft_strjoin_pro(str_without_char(new_str)," ", &str[i];//if nos str then new_str no change
+// 	else
+// 		new_str = its_value(new_str, env); "*******************************************************"
+// 	return (new_str);
+// }
+
+char	*get_valuue(char *var, char **env)
 {
-	char	*new_str;
+	char	*val;
+}
+
+char *variable(char *str, char **env)
+{
 	int		i;
+	int		j;
 	char	*tem;
 
-	i = 1;
-	tem = malloc(sizeof(char) * 2);
-	tem[1] = '\0';
-	new_str = 0;
-	while (str[i] && str[i] != ' ')
-	{
-		tem[0] = str[i];
-		new_str = ft_strjoin(new_str, tem);
+	i = 0;
+	while (str[i] || str[i] != ' ')
 		i++;
+	tem = malloc(sizeof(char) * i + 1);
+	j = 0;
+	while (j < i)
+	{
+		tem[j] = str[j];
+		j++;
 	}
-	free(tem);
-	if (its_int_and_char(new_str))
-		new_str = ft_strjoin_pro(str_without_char(new_str)," ", &str[i];//if nos str then new_str no change
-	else
-		new_str = its_value(new_str, env); "*******************************************************"
-	return (new_str);
+	tem[j] = '\0';
+	tem = get_valuue(tem, env);
+	return (tem);
+	
 }
 
 char	*get_val(char *str, char **env)
 {
 	int		i;
 	int		j;
-	char	*tem;
 	char	*tem_tw;;
 
 	i = 0;
-	tem = str;
 	while (str[i])
 	{
 		if (str[i] == '\'')
 			i += next_qoute(&str[i], '\'');
 		if (str[i] == '$')
 		{
-			j = i;
-			tem_tw = get_untill_here(str, i);
-			j += next_i_position(str[i]);
-			str = get_value(&str[i], env); "*******************************************************"
-			i = ;
+			tem_tw = variable(&str[i + 1], char **env);
+			str = change_vall(str, i, tem_tw);
 		}
 		i++;
 	}
-	free(tem);
+	free(tem_tw);
 	return (str);
 }
 

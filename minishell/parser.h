@@ -6,7 +6,7 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:37:45 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/22 17:52:22 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/23 14:30:32 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ typedef struct parsing
 	char	**filesin;
 	char	**filesout;
 	int		here_doc;
-	char	**her_limite
+	char	**her_limite;
+	char	**env_var;
+	char	**env_value;
 	// char	**cmd_and_args;
 }   		t_cmd;
 typedef struct priorities
