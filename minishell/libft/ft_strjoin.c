@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-hayy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 09:32:13 by ael-hayy          #+#    #+#             */
-/*   Updated: 2021/11/23 11:54:55 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/22 20:53:48 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		c++;
 	}
 	p[a] = '\0';
+	if (s1)
+		free(s1);
 	return (p);
 }
