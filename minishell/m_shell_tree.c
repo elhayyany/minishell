@@ -6,7 +6,7 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 13:33:33 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/22 17:21:20 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/24 12:04:27 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ char    **allocate(int *lens, int i)
 {
 	char    **slices;
  
-	slices = malloc(sizeof(char *) * i + 1);
+	slices = malloc(sizeof(char *) * (i + 1));
 	check_malloc(0, (void **)slices, 0);
 	(void)lens;
 	slices[i] = NULL;

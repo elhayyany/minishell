@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-hayy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:47:15 by ael-hayy          #+#    #+#             */
-/*   Updated: 2021/11/22 13:40:27 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/23 22:16:19 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int		ft_memcmp(const void *st1, const void *st2, size_t len);
 void	*ft_memcpy(void *dest, const void *src, size_t len);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 char	*ft_strchr(const char *a, int b);
-char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strdup(char *s1);
+char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
-int		ft_strlen(const char *a);
+int		ft_strlen(char *a);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strnstr(const char *str, const char *tofind, size_t len);
 char	*ft_strtrim(char const *s1, char const *set);

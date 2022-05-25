@@ -6,13 +6,13 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 09:32:13 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/22 20:53:48 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/23 22:08:53 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*p;
 	size_t	a;
