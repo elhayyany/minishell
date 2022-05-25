@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-hayy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:56:25 by ael-hayy          #+#    #+#             */
-/*   Updated: 2021/11/22 14:34:53 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/25 10:23:20 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strlen(const char *s)
+int	ft_strlen(char *s)
 {
 	int	n;
 

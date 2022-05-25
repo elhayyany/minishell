@@ -6,7 +6,7 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 13:33:33 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/24 12:04:27 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/25 12:19:07 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int calulate_cmds(char *line)
 		}
 		if (line[i] == '(')
 			i += closed_parentheses(&line[i]);
-		if (line[i] == '\'' || line[i] == '\"')
+		if (line[i] == '\'' || line[i] == '"' )
 			i += next_qoute(&line[i], line[i]);
 		i++;
 	}
@@ -109,7 +109,7 @@ void    calulate_cmds_lens(char *line, int *arr)
 			i++;
 			continue ;
 		}
-		if (line[i] == '\'' || line[i] == '\"')
+		if (line[i] == '\'' || line[i] == '"')
 		{
 			printf("%d **\n",i);
 			k += next_qoute(&line[i], line[i]);

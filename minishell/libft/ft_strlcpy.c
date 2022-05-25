@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-hayy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 18:43:57 by ael-hayy          #+#    #+#             */
-/*   Updated: 2021/11/22 14:42:52 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/25 10:25:43 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	size_t	i;
 	size_t	srcsize;
 
-	srcsize = ft_strlen(src);
+	srcsize = ft_strlen((char *)src);
 	if (!dstsize)
 		return (srcsize);
 	if (dstsize > 0)

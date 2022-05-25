@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-hayy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 15:05:02 by ael-hayy          #+#    #+#             */
-/*   Updated: 2021/11/22 15:05:22 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/25 10:27:42 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 	if (s1 == NULL || set == NULL)
 		return (NULL);
-	len = ft_strlen(s1);
+	len = ft_strlen((char *)s1);
 	i = 0;
 	j = 0;
 	k = -1;

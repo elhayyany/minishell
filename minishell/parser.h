@@ -6,7 +6,7 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:37:45 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/24 18:31:06 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/25 12:02:01 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,5 @@ char		*remove_quotes_str(char *str, t_cmd *pipe);
 void		free_db_str(char **str);
 char		*get_val(char *str, t_cmd *pipe);
 void		process_quotes(t_cmd *pipe);
+int			untill_char(char *str, char c);
 #endif

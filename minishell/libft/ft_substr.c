@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strstr.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-hayy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 09:06:28 by ael-hayy          #+#    #+#             */
-/*   Updated: 2021/11/12 16:18:54 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/25 10:27:04 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ char	*ft_substr(char const *s, int start, size_t len)
 	a = 0;
 	if (!s)
 		return (NULL);
-	if (ft_strlen(s) < start)
+	if (ft_strlen((char *)s) < start)
 		return (((char *)ft_calloc(1, 1)));
-	n = ft_strlen(s + start);
+	n = ft_strlen((char *)s + start);
 	if (n > len)
 		n = len;
 	p = (char *)malloc(n + 1);

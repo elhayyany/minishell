@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-hayy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 11:51:30 by ael-hayy          #+#    #+#             */
-/*   Updated: 2021/11/22 14:54:45 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/25 10:25:24 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 
 	x = 0;
 	y = 0;
-	z = ft_strlen(src);
+	z = ft_strlen((char *)src);
 	if (dstsize == 0)
 		return (z);
 	while (dst[x] && x < dstsize)

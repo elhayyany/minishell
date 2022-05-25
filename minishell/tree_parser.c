@@ -6,7 +6,7 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 09:49:57 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/24 20:32:48 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/25 14:48:37 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ char	*get_valuue(char *var, t_cmd *pipe)
 	char	*str;
 
 	i = 0;
-	printf("^%s^\n",var);
 	if (isdigit(var[0]))
 	{
 		str = ft_strdup(&var[1]);
@@ -116,12 +115,22 @@ char	*get_valuue(char *var, t_cmd *pipe)
 		if (!ft_strncmp(var, pipe->env_var[i], sizeof(var)))
 		{
 			free(var);
-			return(ft_strdup(pipe->env_var[i]));
+			return(ft_strdup(pipe->env_valuue[i]));
 		}
 		i++;
 	}
 	free(var);
 	return (0);
+}
+
+char *rm_dollar(char *str, char c)
+{
+	int		j;
+	char	*tem;
+
+	j = untill_char(&str[1], c) + 1;
+	tem = ft_substr(str, 0, j + 1);
+	return (tem);
 }
 
 char *variable(char *str, t_cmd *pipe)
@@ -131,12 +140,12 @@ char *variable(char *str, t_cmd *pipe)
 	char	*tem;
 
 	i = 0;
-	printf("####%c\n", str[0]);
 	if (str[i] == ' ')
 		return (str);
-	//return (rv_quote(str));
-	while (str[i] && str[i] != ' ')
+	while (str[i] && (isalpha(str[i]) || isdigit(str[i]) || str[i] == '_'))
 		i++;
+	if (str[0] == '\'' || str[0] == '"')
+		return (rm_dollar(str, str[0]));
 	tem = malloc(sizeof(char) * i + 1);
 	j = 0;
 	while (j < i)
@@ -146,7 +155,6 @@ char *variable(char *str, t_cmd *pipe)
 	}
 	tem[j] = '\0';
 	tem = get_valuue(tem, pipe);
-	printf("####_____~~~~: %s\n", tem);
 	return (tem);
 	
 }
@@ -168,31 +176,36 @@ int	after_var(char *str)
 
 	i = 0;
 	j = 0;
-	while (str[i] && str[i] != ' ')
+	if (str[i] == '\'' || str[i] == '"')
+		return (next_qoute(str, str[0]) + 2);
+	while (str[i] && (ft_isalpha(str[i]) || ft_isdigit(str[i]) || str[i] == '_'))
 		i++;
-	while (str[i])
-		j++;
-	return (j);
+	i++;
+	return (i);
 }
 
 char	*change_vall(char *str,char *var)
 {
 	int		j;
 	char	*tem;
+	char	*tem_t;
 	char	*tem_tw;
-	char	*tem_th;
 
-	tem_th = str;
+	tem_t = str;
 	j = untill_char(str, '$');
-	tem = ft_substr(str, 0, j - 1);
-	j = after_var(&str[j + 1]);
+	tem = ft_substr(str, 0, j);
+	j += after_var(&str[j + 1]);
 	tem_tw = ft_substr(str, j, ft_strlen(str));
-	str = ft_strjoin(tem, var);
+	if (var)
+		str = ft_strjoin(tem, var);
+	else
+		str = tem;
 	str = ft_strjoin(str, tem_tw);
 	if (var)
 		free(var);
-	if (tem_th)
-		free(tem_th);
+	if (tem_tw)
+		free(tem_tw);
+	free(tem_t);
 	return (str);
 }
 
@@ -204,14 +217,14 @@ char	*get_val(char *str, t_cmd *pipe)
 	i = 0;
 	while (str[i])
 	{
-		printf("*%c\n", str[i]);
 		if (str[i] == '\'')
+		{
 			i += next_qoute(&str[i], '\'');
+		}
 		if (str[i] == '$')
 		{
 			tem_tw = variable(&str[i + 1], pipe);
 			str = change_vall(str, tem_tw);
-			printf("~~%s\n", tem_tw);
 		}
 		i++;
 	}
@@ -263,22 +276,37 @@ char	*remove_quotes_str(char *str, t_cmd *pipe)
 	if (no_quote_found(str))
 		return (str);
 	len = len_without_quotes(str);
-	//j = ft_strlen(str);
 	new_str = malloc(sizeof(char) * len + 1);
 	i = 0;
 	j = 0;
-	ft_bzero(new_str, len + 1);
 	while (str[i])
 	{
-		if (str[i] == '\"' || str[i] == '\'')
+		if (str[i] == '\'')
 		{
-			ft_concat(new_str, get_quotesd_word(&str[i]), &j);
-			i += next_qoute(&str[i], str[i]);
+			i++;
+			while (str[i] != '\'')
+			{
+				new_str[j] = str[i];
+				j++;
+				i++;
+			}
+		}
+		else if (str[i] == '"')
+		{
+			i++;
+			while (str[i] != '"')
+			{
+				new_str[j] = str[i];
+				j++;
+				i++;
+			}
 		}
 		else
+		{
 			new_str[j] = str[i];
+			j++;
+		}
 		i++;
-		j++;
 	}
 	new_str[j] = '\0';
 	free(str);
@@ -307,15 +335,9 @@ char	**remove_quotes(char **str, t_cmd *pipe)
 void	process_quotes(t_cmd *pipe)
 {
 	pipe->cmd = remove_quotes_str(pipe->cmd, pipe);
-	// printf("2\n");
 	pipe->args = remove_quotes(pipe->args, pipe);
-	// printf("3\n");
 	pipe->filesin = remove_quotes(pipe->filesin, pipe);
-	// printf("4\n");
 	pipe->filesout = remove_quotes(pipe->filesout, pipe);
-	// printf("5\n");
-	pipe->her_limit = remove_quotes(pipe->her_limit, pipe);
-	// printf("6\n");
 	pipe->files_appends = remove_quotes(pipe->files_appends, pipe);
 }
 
