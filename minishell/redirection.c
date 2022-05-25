@@ -6,11 +6,11 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 18:02:03 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/24 18:31:45 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/25 19:01:00 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "executor/minishell.h"
 
 int	word_length(t_cmd *pipe, int i)
 {
@@ -165,17 +165,17 @@ void	redirections(t_cmd *pipe)
 	int	i;
 
 	i = 0;
-	
+	pipe->lastout = malloc(sizeof(int));
 	while (pipe->line[i])
 	{
 		if (pipe->line[i] == '<' && pipe->line[i + 1] == '<')
 		{
-			pipe->lastout = 1;
+			pipe->lastout[0] = 1;
 			i = her_doc(pipe, i);
 		}
 		else if (pipe->line[i] == '<'  && pipe->line[i + 1] != '<')
 		{
-			pipe->lastout = 2;
+			pipe->lastout[0] = 2;
 			i = redirectinp(pipe, i);
 		}
 		else if (pipe->line[i] == '>' && pipe->line[i + 1] == '>')
@@ -187,6 +187,6 @@ void	redirections(t_cmd *pipe)
 		else if (pipe->line[i] == ' ')
 			i++;
 	}
-	// process_quotes(pipe);
-	//files_open(pipe);
+	process_quotes(pipe);
+	files_open(pipe);
 }

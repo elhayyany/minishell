@@ -6,11 +6,11 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 09:50:03 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/21 17:14:51 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/25 18:38:25 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "executor/minishell.h"
 
 int	all_space(char *line)
 {

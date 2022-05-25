@@ -6,12 +6,12 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 13:33:33 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/25 12:19:07 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/25 18:38:44 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "parser.h"
+#include "executor/minishell.h"
  
  void	check_malloc(void *p, void **ptr, int i)
  {

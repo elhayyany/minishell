@@ -6,7 +6,7 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:37:45 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/25 12:02:01 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/25 18:32:15 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ typedef struct parsing
 	int		*inputs_num;
 	int		*outputs_num;
 	int		*append_num;
-	int		**appends;
-	int		**outputs;
-	int		**inputs;
+	int		*appends;
+	int		*outputs;
+	int		*inputs;
 	char	**files_appends;
 	char	**filesin;
 	char	**filesout;
@@ -34,7 +34,8 @@ typedef struct parsing
 	char	**her_limit;
 	char	**env_var;
 	char	**env_valuue;
-	int		lastout;
+	int		*lastout;
+	int		*fd;
 }   		t_cmd;
 
 typedef struct priorities
@@ -65,7 +66,10 @@ t_cmd		*cmd_parse(char *line, char **env);
 void		ft_srtuct_bzero(t_cmd *pipe);
 char		*remove_quotes_str(char *str, t_cmd *pipe);
 void		free_db_str(char **str);
-char		*get_val(char *str, t_cmd *pipe);
+char		*get_val(char *str, t_cmd *pipe, int j);
 void		process_quotes(t_cmd *pipe);
+void		files_open(t_cmd *pipe);
+int			no_quote_found(char *str);
 int			untill_char(char *str, char c);
+char		*get_next_line(void);
 #endif

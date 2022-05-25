@@ -6,11 +6,11 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 09:49:57 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/25 14:48:37 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/25 18:37:59 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "executor/minishell.h"
 
 
 
@@ -209,7 +209,7 @@ char	*change_vall(char *str,char *var)
 	return (str);
 }
 
-char	*get_val(char *str, t_cmd *pipe)
+char	*get_val(char *str, t_cmd *pipe, int j)
 {
 	int		i;
 	char	*tem_tw;;
@@ -217,10 +217,11 @@ char	*get_val(char *str, t_cmd *pipe)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '\'')
-		{
-			i += next_qoute(&str[i], '\'');
-		}
+		if (j)
+			if (str[i] == '\'')
+			{
+				i += next_qoute(&str[i], '\'');
+			}
 		if (str[i] == '$')
 		{
 			tem_tw = variable(&str[i + 1], pipe);
@@ -272,7 +273,9 @@ char	*remove_quotes_str(char *str, t_cmd *pipe)
 	int		j;
 	char	*new_str;
 
-	str = get_val(str, pipe);
+	if (!str)
+		return (str);
+	str = get_val(str, pipe, 1);
 	if (no_quote_found(str))
 		return (str);
 	len = len_without_quotes(str);
@@ -320,6 +323,8 @@ char	**remove_quotes(char **str, t_cmd *pipe)
 	char	**new_str;
 	
 	i = 0;
+	if (!str)
+		return (str);
 	j = strsnums(str);
 	new_str = malloc(sizeof(char *) * (j + 1));
 	while (i < j)

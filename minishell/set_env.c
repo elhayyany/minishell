@@ -6,11 +6,11 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 22:41:29 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/24 12:06:27 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/25 18:38:19 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "executor/minishell.h"
 
 int	lenuntillequal(char *str)
 {
