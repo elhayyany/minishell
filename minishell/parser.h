@@ -6,7 +6,7 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:37:45 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/25 18:32:15 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/26 11:26:57 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 
 typedef struct parsing
 {
+	int		*write_to;
+	int		*read_from;
+	int		*A;
 	char	*line;
 	char	*cmd;
 	char	**args;
@@ -35,8 +38,9 @@ typedef struct parsing
 	char	**env_var;
 	char	**env_valuue;
 	int		*lastout;
+	int		*lastin;
 	int		*fd;
-}   		t_cmd;
+}			t_cmd;
 
 typedef struct priorities
 {
@@ -67,6 +71,7 @@ void		ft_srtuct_bzero(t_cmd *pipe);
 char		*remove_quotes_str(char *str, t_cmd *pipe);
 void		free_db_str(char **str);
 char		*get_val(char *str, t_cmd *pipe, int j);
+char		**remove_quotes(char **str, t_cmd *pipe);
 void		process_quotes(t_cmd *pipe);
 void		files_open(t_cmd *pipe);
 int			no_quote_found(char *str);

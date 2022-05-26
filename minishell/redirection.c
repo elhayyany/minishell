@@ -6,7 +6,7 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 18:02:03 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/25 19:01:00 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/26 11:28:00 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,9 @@ void	redirections(t_cmd *pipe)
 
 	i = 0;
 	pipe->lastout = malloc(sizeof(int));
+	pipe->lastin = malloc(sizeof(int));
+	pipe->lastout[0] = 0;
+	pipe->lastin[0] = 0;
 	while (pipe->line[i])
 	{
 		if (pipe->line[i] == '<' && pipe->line[i + 1] == '<')
@@ -179,9 +182,15 @@ void	redirections(t_cmd *pipe)
 			i = redirectinp(pipe, i);
 		}
 		else if (pipe->line[i] == '>' && pipe->line[i + 1] == '>')
+		{
+			pipe->lastin[0] = 1;
 			i = redirectappend(pipe, i);
+		}
 		else if (pipe->line[i] == '>' && pipe->line[i + 1] != '>')
+		{
+			pipe->lastin[0] = 2;
 			i = redirectout(pipe, i);
+		}
 		else if (pipe->line[i] != ' ')
 			i = cmd_and_args(pipe, i);
 		else if (pipe->line[i] == ' ')

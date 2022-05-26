@@ -6,7 +6,7 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 13:33:33 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/25 18:38:44 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/26 11:42:39 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,7 +329,6 @@ t_prior*    m_shell_parser(char *line, char *** operators)
 	script->slices = slices;
 	if (strsnums(slices) == 1)
 	{
-		printf("%s\n", slices[0]);
 		i = 0;
 		script->numofchilds = 0;
 		return (script);
