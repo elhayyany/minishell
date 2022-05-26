@@ -6,7 +6,7 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 09:50:03 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/25 18:38:25 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/26 14:29:12 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int check_parentheses(char *line)
 	{
 		if (line[i] == '\"' || line[i] == '\'')
 			i += next_qoute(&line[i], line[i]);
-		if (line[i] == '(')
+		else if (line[i] == '(')
 		{
 			if (i == 0)
 				j++;
@@ -80,7 +80,7 @@ int check_parentheses(char *line)
 		}     
 		else if (line[i] == ')')
 			j--;
-		if (j != 0 )
+		if (j < 0 )
 			return (1);
 		i++;
 	}
