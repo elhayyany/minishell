@@ -6,7 +6,7 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 15:09:49 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/26 11:36:49 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/27 10:56:36 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	get_herdoc(t_cmd *pipe, int j, char *limit)
 			return ;
 		}
 		if (j == 1)
-			line = get_val(line, pipe, 0);
+			line = get_val(line, pipe, 0, 0);
 		if (pipe->lastout[0] == 1)
 		{
 			write(pipe->fd[1], line, ft_strlen(line));
@@ -66,7 +66,7 @@ void	open_her_doc(t_cmd *pip)
 		}
 		else
 		{
-			pip->her_limit[i] = remove_quotes_str(pip->her_limit[i], pip);
+			pip->her_limit[i] = remove_quotes_str(pip->her_limit[i], pip, 0);
 			get_herdoc(pip, 2, pip->her_limit[i]);
 		}
 		i++;

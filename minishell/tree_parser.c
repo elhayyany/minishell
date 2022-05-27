@@ -6,7 +6,7 @@
 /*   By: ael-hayy <ael-hayy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 09:49:57 by ael-hayy          #+#    #+#             */
-/*   Updated: 2022/05/26 10:48:06 by ael-hayy         ###   ########.fr       */
+/*   Updated: 2022/05/26 17:52:41 by ael-hayy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ char	*change_vall(char *str,char *var)
 	return (str);
 }
 
-char	*get_val(char *str, t_cmd *pipe, int j)
+char	*get_val(char *str, t_cmd *pipe, int j, int f)
 {
 	int		i;
 	char	*tem_tw;;
@@ -225,6 +225,8 @@ char	*get_val(char *str, t_cmd *pipe, int j)
 		if (str[i] == '$')
 		{
 			tem_tw = variable(&str[i + 1], pipe);
+			if (f == 1 && !tem_tw)
+				write(2, "ambiguous redirect\n", 19);
 			str = change_vall(str, tem_tw);
 		}
 		i++;
@@ -266,7 +268,7 @@ void	ft_concat(char *str1, char *str2, int *j)
 	free(str2);
 }
 
-char	*remove_quotes_str(char *str, t_cmd *pipe)
+char	*remove_quotes_str(char *str, t_cmd *pipe, int f)
 {
 	int		len;
 	int		i;
@@ -275,7 +277,7 @@ char	*remove_quotes_str(char *str, t_cmd *pipe)
 
 	if (!str)
 		return (str);
-	str = get_val(str, pipe, 1);
+	str = get_val(str, pipe, 1, f);
 	if (no_quote_found(str))
 		return (ft_strdup(str));
 	len = len_without_quotes(str);
@@ -316,7 +318,7 @@ char	*remove_quotes_str(char *str, t_cmd *pipe)
 	return (new_str);
 }
 
-char	**remove_quotes(char **str, t_cmd *pipe)
+char	**remove_quotes(char **str, t_cmd *pipe, int f)
 {
 	int		i;
 	int		j;
@@ -329,7 +331,7 @@ char	**remove_quotes(char **str, t_cmd *pipe)
 	new_str = malloc(sizeof(char *) * (j + 1));
 	while (i < j)
 	{
-		new_str[i] = remove_quotes_str(str[i], pipe);
+		new_str[i] = remove_quotes_str(str[i], pipe, f);
 		i++;
 	}
 	new_str[i] = 0;
@@ -339,10 +341,10 @@ char	**remove_quotes(char **str, t_cmd *pipe)
 
 void	process_quotes(t_cmd *pipe)
 {
-	pipe->cmd = remove_quotes_str(pipe->cmd, pipe);
-	pipe->args = remove_quotes(pipe->args, pipe);
-	pipe->filesin = remove_quotes(pipe->filesin, pipe);
-	pipe->filesout = remove_quotes(pipe->filesout, pipe);
-	pipe->files_appends = remove_quotes(pipe->files_appends, pipe);
+	pipe->cmd = remove_quotes_str(pipe->cmd, pipe, 0);
+	pipe->args = remove_quotes(pipe->args, pipe, 0);
+	pipe->filesin = remove_quotes(pipe->filesin, pipe, 1);
+	pipe->filesout = remove_quotes(pipe->filesout, pipe, 1);
+	pipe->files_appends = remove_quotes(pipe->files_appends, pipe, 1);
 }
 
